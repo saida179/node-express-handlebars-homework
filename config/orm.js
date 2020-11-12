@@ -1,3 +1,4 @@
+//Using CATS help
 // Import MySQL connection.
 const connection = require("../config/connection.js");
 
