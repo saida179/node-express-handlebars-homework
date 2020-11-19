@@ -42,16 +42,16 @@ function objToSql(ob) {
 
 // Object for all our SQL statement functions.
 const orm = {
-  all: function(tableInput, cb) {
+  all: function(tableInput, bb) {
     const queryString = "SELECT * FROM " + tableInput + ";";
     connection.query(queryString, function(err, result) {
       if (err) {
         throw err;
       }
-      cb(result);
+      bb(result);
     });
   },
-  create: function(table, cols, vals, cb) {
+  create: function(table, cols, vals, bb) {
     let queryString = "INSERT INTO " + table;
 
     queryString += " (";
@@ -68,11 +68,11 @@ const orm = {
         throw err;
       }
 
-      cb(result);
+      bb(result);
     });
   },
   // An example of objColVals would be {name: panther, sleepy: true}
-  update: function(table, objColVals, condition, cb) {
+  update: function(table, objColVals, condition, bb) {
     let queryString = "UPDATE " + table;
 
     queryString += " SET ";
@@ -86,23 +86,8 @@ const orm = {
         throw err;
       }
 
-      cb(result);
+      bb(result);
     });
   },
-  delete: function(table, condition, cb) {
-    let queryString = "DELETE FROM " + table;
-    queryString += " WHERE ";
-    queryString += condition;
-
-    connection.query(queryString, function(err, result) {
-      if (err) {
-        throw err;
-      }
-
-      cb(result);
-    });
-  }
-};
-
 // Export the orm object for the model (cat.js).
 module.exports = orm;
